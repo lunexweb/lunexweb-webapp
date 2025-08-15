@@ -156,9 +156,6 @@
         <a href="/packages" class="nav-link {$page.url.pathname === '/packages' ? 'nav-link-active' : ''}">
           Packages
         </a>
-        <a href="/file-uploader" class="nav-link {$page.url.pathname === '/file-uploader' ? 'nav-link-active' : ''}">
-          File Tools
-        </a>
         <a href="/contact" class="nav-link {$page.url.pathname === '/contact' ? 'nav-link-active' : ''}">
           Contact
         </a>
@@ -199,7 +196,6 @@
           <a href="/about" class="text-gray-300 hover:text-white transition-colors">About</a>
           <a href="/websites" class="text-gray-300 hover:text-white transition-colors">Websites & Marketing</a>
                   <a href="/packages" class="text-gray-300 hover:text-white transition-colors">Our Packages</a>
-        <a href="/file-uploader" class="text-gray-300 hover:text-white transition-colors">File Tools</a>
         <a href="/contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
         </div>
       </div>
