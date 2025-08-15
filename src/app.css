@@ -1,0 +1,868 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom font loading - temporarily disabled */
+/*
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+/* Base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #FFFFFF;
+    color: #000000;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.02) 0%, transparent 50%);
+    background-attachment: fixed;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+  }
+  
+  /* Prevent body scroll when mobile menu is open */
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+  
+  /* Ensure mobile menu is above everything */
+  .mobile-menu-overlay {
+    z-index: 9999 !important;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #FFFFFF;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #E5E7EB;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D1D5DB;
+  }
+}
+
+/* Component styles */
+@layer components {
+  .btn-primary {
+    @apply bg-text text-primary px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-all duration-300 hover:bg-opacity-90 hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-text text-text px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-all duration-300 hover:bg-text hover:text-primary shadow-md hover:shadow-lg text-sm sm:text-base;
+  }
+  
+  .filter-btn {
+    @apply transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-opacity-50;
+  }
+  
+  .section-padding {
+    @apply py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-16;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto w-full;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-text to-secondary bg-clip-text text-transparent;
+  }
+  
+  .bg-secondary-section {
+    background-color: #F8F9FA;
+  }
+  
+  .card-shadow {
+    @apply shadow-lg hover:shadow-xl transition-shadow duration-300;
+  }
+  
+  .subtle-border {
+    @apply border;
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Modern Header Styles */
+  .modern-header {
+    @apply fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .header-scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4;
+  }
+  
+  .header-content {
+    @apply flex items-center justify-between;
+  }
+  
+  .header-logo {
+    @apply flex items-center space-x-2 sm:space-x-3 hover:opacity-80 transition-all duration-300;
+  }
+  
+  .logo-circle {
+    @apply w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-text flex items-center justify-center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .logo-circle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .header-logo:hover .logo-circle {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  }
+  
+  .header-logo:hover .logo-circle::before {
+    left: 100%;
+  }
+  
+  .logo-text {
+    @apply text-primary font-black text-lg sm:text-xl;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .header-logo:hover .logo-text {
+    transform: scale(1.1);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .logo-brand {
+    @apply text-lg sm:text-xl font-black text-text;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #000000 0%, #374151 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .header-logo:hover .logo-brand {
+    background: linear-gradient(135deg, #1f2937 0%, #000000 100%);
+    -webkit-background-clip: text;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transform: scale(1.02);
+  }
+  
+  .header-nav-desktop {
+    @apply hidden lg:flex items-center space-x-8;
+    /* Debug: Ensure navigation is visible and clickable */
+    position: relative;
+    z-index: 100;
+  }
+  
+  .nav-link {
+    @apply text-text font-medium text-sm tracking-wide relative py-2 transition-all duration-300;
+    position: relative;
+    /* Debug: Ensure links are clickable */
+    cursor: pointer;
+    z-index: 101;
+  }
+  
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-text transition-all duration-300;
+  }
+  
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+  
+  .nav-link:hover {
+    @apply text-text;
+    transform: translateY(-1px);
+  }
+  
+  .nav-link-active {
+    @apply text-text;
+  }
+  
+  .nav-link-active::after {
+    @apply w-full;
+  }
+  
+  /* Mobile Menu Toggle Button - Enhanced */
+  .mobile-menu-toggle {
+    @apply lg:hidden;
+    position: relative;
+    z-index: 1000;
+  }
+  
+  /* Ensure mobile menu components are properly positioned */
+  .mobile-menu-overlay {
+    z-index: 9999 !important;
+  }
+  
+  .mobile-menu-content {
+    z-index: 10000 !important;
+  }
+  
+  /* Enhanced Responsive Utilities */
+  .mobile-only {
+    @apply block lg:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden lg:block;
+  }
+  
+  .tablet-up {
+    @apply hidden md:block;
+  }
+  
+  .mobile-up {
+    @apply block md:hidden;
+  }
+  
+  /* Touch-friendly sizing */
+  .touch-target {
+    @apply min-w-[44px] min-h-[44px];
+  }
+  
+  /* Enhanced focus states */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+  
+  .focus-visible-ring:focus-visible {
+    --tw-ring-color: rgba(0, 0, 0, 0.2);
+    --tw-ring-offset-color: #FFFFFF;
+  }
+  
+  /* Smooth transitions for all interactive elements */
+  .interactive {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  /* Enhanced hover effects */
+  .hover-lift {
+    @apply hover:transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300;
+  }
+  
+  .hover-scale {
+    @apply hover:transform hover:scale-105 transition-all duration-300;
+  }
+}
+
+/* Animation utilities */
+@layer utilities {
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .animate-on-scroll.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+  
+  .slide-down {
+    animation: slideDown 0.8s ease-out forwards;
+  }
+}
+
+/* GSAP animation classes */
+.gsap-fade-in {
+  opacity: 0;
+  y: 30;
+}
+
+.gsap-slide-up {
+  opacity: 0;
+  y: 50;
+}
+
+.gsap-scale-in {
+  opacity: 0;
+  scale: 0.8;
+}
+
+/* Portfolio Section - Simple and Reliable */
+.portfolio-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.portfolio-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.portfolio-image-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.portfolio-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover .portfolio-image {
+  transform: scale(1.02);
+}
+
+
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .portfolio-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  .portfolio-image-container {
+    height: 200px;
+  }
+  
+  .portfolio-overlay {
+    padding: 1rem;
+  }
+  
+  .portfolio-title {
+    font-size: 1.125rem;
+  }
+  
+  .portfolio-description {
+    font-size: 0.8rem;
+  }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .portfolio-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .portfolio-card {
+    cursor: default;
+  }
+  
+  .portfolio-overlay {
+    opacity: 1;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+  }
+  
+  .portfolio-card:active {
+    transform: translateY(-4px);
+  }
+}
+
+/* High DPI Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .portfolio-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-card,
+  .portfolio-image,
+  .portfolio-overlay {
+    transition: none;
+  }
+  
+  .portfolio-card:hover {
+    transform: none;
+  }
+  
+  .portfolio-card:hover .portfolio-image {
+    transform: none;
+  }
+}
+
+.placeholder-icon {
+  color: #000000;
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* Smooth scrolling for Lenis */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+} 
+
+/* Enhanced keyframe animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(224, 217, 209, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(224, 217, 209, 0.8);
+  }
+} 
+
+/* Enhanced responsive utilities */
+@layer utilities {
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .animate-on-scroll.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-out forwards;
+  }
+  
+  .slide-up {
+    animation: slideUp 1s ease-out forwards;
+  }
+  
+  .slide-down {
+    animation: slideDown 0.3s ease-out forwards;
+  }
+  
+  .slide-in-right {
+    animation: slideInRight 0.3s ease-out forwards;
+  }
+  
+  .slide-in-left {
+    animation: slideInLeft 0.3s ease-out forwards;
+  }
+  
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .pulse-glow {
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+  
+  /* Enhanced mobile responsiveness */
+  .mobile-only {
+    @apply block lg:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden lg:block;
+  }
+  
+  .tablet-up {
+    @apply hidden md:block;
+  }
+  
+  .mobile-up {
+    @apply block md:hidden;
+  }
+  
+  /* Touch-friendly sizing */
+  .touch-target {
+    @apply min-w-[44px] min-h-[44px];
+  }
+  
+  /* Enhanced focus states */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+  
+  .focus-visible-ring:focus-visible {
+    --tw-ring-color: rgba(0, 0, 0, 0.2);
+    --tw-ring-offset-color: #FFFFFF;
+  }
+  
+  /* Smooth transitions for all interactive elements */
+  .interactive {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  /* Enhanced hover effects */
+  .hover-lift {
+    @apply hover:transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300;
+  }
+  
+  .hover-scale {
+    @apply hover:transform hover:scale-105 transition-all duration-300;
+  }
+  
+  /* Modern Header Responsive Styles */
+  @media (max-width: 1024px) {
+    .header-container {
+      @apply px-4 py-3;
+    }
+    
+    .logo-brand {
+      @apply text-lg;
+    }
+    
+    .logo-circle {
+      @apply w-8 h-8;
+    }
+    
+    .logo-text {
+      @apply text-lg;
+    }
+  }
+  
+  /* Enhanced logo hover effects for larger screens */
+  @media (min-width: 1024px) {
+    .header-logo:hover .logo-brand {
+      transform: scale(1.03) translateY(-1px);
+    }
+    
+    .header-logo:hover .logo-circle {
+      transform: scale(1.08) rotate(5deg);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .header-container {
+      @apply px-3 py-2;
+    }
+    
+    .logo-brand {
+      @apply text-base;
+    }
+    
+    .logo-circle {
+      @apply w-7 h-7;
+    }
+    
+    .logo-text {
+      @apply text-base;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mobile-menu-button {
+      @apply w-14 h-14;
+    }
+    
+    .mobile-menu-content {
+      @apply bottom-20 right-4 min-w-56;
+    }
+    
+    .mobile-nav-link {
+      @apply text-base py-2.5 px-3;
+    }
+  }
+} 
+
+/* Additional responsive breakpoints for better mobile experience */
+@media (max-width: 375px) {
+  .section-padding {
+    @apply py-8 px-3;
+  }
+  
+  .container-custom {
+    @apply px-3;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    @apply px-4 py-2.5 text-base; /* Increased from text-sm for better readability */
+  }
+  
+  /* Ensure mobile menu is properly positioned on very small screens */
+  .mobile-menu-content {
+    @apply bottom-16 right-3 min-w-52;
+  }
+  
+  .mobile-menu-button-container {
+    @apply bottom-4 right-4;
+  }
+  
+  /* Extra small screen text sizing */
+  .mobile-nav-link {
+    @apply text-lg; /* 18px minimum on very small screens */
+  }
+  
+  /* Ensure minimum readable text sizes */
+  h1, .text-4xl, .text-5xl, .text-6xl {
+    font-size: 1.875rem !important; /* 30px minimum */
+  }
+  
+  h2, .text-3xl {
+    font-size: 1.625rem !important; /* 26px minimum */
+  }
+  
+  h3, .text-2xl {
+    font-size: 1.375rem !important; /* 22px minimum */
+  }
+  
+  h4, .text-xl {
+    font-size: 1.125rem !important; /* 18px minimum */
+  }
+  
+  h5, .text-lg {
+    font-size: 1rem !important; /* 16px minimum */
+  }
+  
+  p, .text-base {
+    font-size: 1rem !important; /* 16px minimum */
+  }
+  
+  .text-sm {
+    font-size: 0.875rem !important; /* 14px minimum */
+  }
+  
+
+  
+
+}
+
+/* Touch-friendly mobile improvements */
+@media (max-width: 768px) {
+  /* Ensure buttons and interactive elements are touch-friendly */
+  .btn-primary,
+  .btn-secondary {
+    @apply min-h-12;
+  }
+  
+  /* Improve mobile navigation touch targets */
+  .mobile-nav-link {
+    @apply min-h-12;
+  }
+  
+  /* Ensure proper spacing on mobile */
+  .header-container {
+    @apply px-4 py-3;
+  }
+  
+  /* Mobile text sizing - ensure readability */
+  .mobile-nav-link {
+    @apply text-lg;
+  }
+  
+  /* Ensure all text is readable on mobile */
+  body {
+    font-size: 16px; /* Base mobile font size */
+  }
+  
+  /* Mobile-specific text sizes */
+  h1, .text-4xl, .text-5xl, .text-6xl {
+    font-size: 2rem !important; /* 32px on mobile */
+  }
+  
+  h2, .text-3xl {
+    font-size: 1.75rem !important; /* 28px on mobile */
+  }
+  
+  h3, .text-2xl {
+    font-size: 1.5rem !important; /* 24px on mobile */
+  }
+  
+  h4, .text-xl {
+    font-size: 1.25rem !important; /* 20px on mobile */
+  }
+  
+  h5, .text-lg {
+    font-size: 1.125rem !important; /* 18px on mobile */
+  }
+  
+  p, .text-base {
+    font-size: 1rem !important; /* 16px on mobile */
+  }
+  
+  .text-sm {
+    font-size: 0.875rem !important; /* 14px on mobile */
+  }
+}
+
+@media (min-width: 376px) and (max-width: 767px) {
+  .section-padding {
+    @apply py-10 px-4;
+  }
+  
+  .container-custom {
+    @apply px-4;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .section-padding {
+    @apply py-16 px-6;
+  }
+  
+  .container-custom {
+    @apply px-6;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .section-padding {
+    @apply py-20 px-8;
+  }
+  
+  .container-custom {
+    @apply px-8;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section-padding {
+    @apply py-24 px-16;
+  }
+  
+  .container-custom {
+    @apply px-16;
+  }
+} 
+
+ 
+ 
+ 
