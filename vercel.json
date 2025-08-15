@@ -1,5 +1,10 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".svelte-kit/output",
-  "framework": "sveltekit"
+  "framework": "sveltekit",
+  "functions": {
+    "app/**/*.js": {
+      "runtime": "nodejs20.x"
+    }
+  }
 } 
